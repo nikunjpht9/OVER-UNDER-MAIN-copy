@@ -1,10 +1,10 @@
 class Pneumatics
 {
     public:
-        static void blockerExtend();
+        static void hangExtend();
         static void verticalWingsExtend();
         static void horizontalWingsExtend(); 
-        static bool isBlockerOn; 
+        static bool hangDirection; 
         static bool isHorizontalOn; 
         static bool isVerticalOn; 
 };

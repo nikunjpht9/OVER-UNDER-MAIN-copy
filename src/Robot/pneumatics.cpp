@@ -1,44 +1,33 @@
 #include "main.h"
 #include "roboconfig.h"
 
+
 #include "Programs/skills.h"
 #include "Programs/autonomous.h"
 
-#include "Software/lcd.h" 
+
+#include "Software/lcd.h"
 #include "Software/doctor.h"
 #include "Software/imu.h"
 #include "Software/odometry.h"
 #include "Software/pid.h"
 #include "Software/mathfunctions.h"
 
+
 #include "Robot/drivetrain.h"
 #include "Robot/intake.h"
 #include "Robot/puncher.h"
 #include "Robot/pneumatics.h"
 
-bool Pneumatics::isBlockerOn = false;
-bool isBlockerPressed = false;
+
+bool Pneumatics::hangDirection = false;
 bool Pneumatics::isVerticalOn = false;
-bool isVerticalPressed = false;
 bool Pneumatics::isHorizontalOn = false;
 bool isHorizontalPressed = false;
+bool isVerticalPressed = false;
+bool isHangUpPressed = false;
+bool isHangDownPressed = false;
 
-void Pneumatics::blockerExtend()
-{
-    if(master.get_digital(pros::E_CONTROLLER_DIGITAL_B))
-    {
-        if(!isBlockerPressed)
-        {
-            isBlockerOn = !isBlockerOn;
-            isBlockerPressed = true;
-        }
-    }
-    else
-    {
-        isBlockerPressed = false;
-    }
-    blocker.set_value(isBlockerOn);
-}
 
 void Pneumatics::verticalWingsExtend()
 {
@@ -46,7 +35,7 @@ void Pneumatics::verticalWingsExtend()
     {
         if(!isVerticalPressed)
         {
-            isVerticalOn = !isVerticalOn;
+            Pneumatics::isVerticalOn = !Pneumatics::isVerticalOn;
             isVerticalPressed = true;
         }
     }
@@ -54,8 +43,9 @@ void Pneumatics::verticalWingsExtend()
     {
         isVerticalPressed = false;
     }
-    vWings.set_value(isVerticalOn);
+    vWings.set_value(Pneumatics::isVerticalOn);
 }
+
 
 void Pneumatics::horizontalWingsExtend()
 {
@@ -63,7 +53,7 @@ void Pneumatics::horizontalWingsExtend()
     {
         if(!isHorizontalPressed)
         {
-            isHorizontalOn = !isHorizontalOn;
+            Pneumatics::isHorizontalOn = !Pneumatics::isHorizontalOn;
             isHorizontalPressed = true;
         }
     }
@@ -71,5 +61,43 @@ void Pneumatics::horizontalWingsExtend()
     {
         isHorizontalPressed = false;
     }
-    hWings.set_value(isHorizontalOn);
+    hWings.set_value(Pneumatics::isHorizontalOn);
 }
+
+
+
+
+
+
+void Pneumatics::hangExtend()
+{
+    if(master.get_digital(pros::E_CONTROLLER_DIGITAL_UP))
+    {
+        if(!isHangUpPressed)
+        {
+            Pneumatics::hangDirection = true;
+            isHangUpPressed = true;
+        }
+    }
+    else
+    {
+        isHangUpPressed = false;
+    }
+
+
+    if(master.get_digital(pros::E_CONTROLLER_DIGITAL_DOWN))
+    {
+        if(!isHangDownPressed)
+        {
+            Pneumatics::hangDirection = false;
+            isHangDownPressed = true;
+        }
+    }
+    else
+    {
+        isHangDownPressed = false;
+    }
+    hang.set_value(Pneumatics::hangDirection);
+}
+
+

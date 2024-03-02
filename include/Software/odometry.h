@@ -1,7 +1,9 @@
 class Odometry
 {
     public: 
-        static int main();
+        static void main();
         static int moveDirection();
+        static void reset();
+        static double X, Y;
 
 };

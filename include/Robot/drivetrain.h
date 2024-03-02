@@ -1,17 +1,27 @@
 class Drivetrain {
  public:
 
+
  static void control();
  static void newControl();
+
 
  static void setLeftSpeed(double);
  static void setRightSpeed(double);
 
+
+ static void driveAtFor(double, double, double);
+
+
  static void setLeftVolts(double);
  static void setRightVolts(double);
 
+ static void setVolts(double, double);
+
  static void setLeftVoltageSpeed(double);
  static void setRightVoltageSpeed(double);
+
+
 
 
  static void brake();

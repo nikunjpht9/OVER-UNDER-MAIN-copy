@@ -41,9 +41,11 @@ void Puncher::punch()
 
     
     if(puncherOn) {
-        puncher.move_velocity(-100);
+        puncher.move_velocity(-150);
+        puncherHalf.move_velocity(-150);
     }
     else {
         puncher.brake();
+        puncherHalf.brake();
     }
 }

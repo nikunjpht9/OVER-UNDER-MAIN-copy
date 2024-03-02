@@ -8,4 +8,7 @@ public:
     static void far();  
     static void improvedFar();
     static void hangingTest(); 
+    static void farAWP();
+    static void farV2();
+    static void closeSide9();
 };
